@@ -1,121 +1,111 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
 import './App.css'
+import ProjetoCard from './components/ProjetoCard'
+import Resumo from './components/Resumo'
+import Secao from './components/Secao'
+
+const projetos = [
+  {
+    id: 1,
+    titulo: 'Sistema de Estoque',
+    descricao: 'Controle de produtos e movimentações.',
+    responsavel: 'Ana',
+    status: 'Concluído',
+    tecnologias: ['React', 'Node.js', 'PostgreSQL', 'Vitest'],
+    destaque: true,
+  },
+  {
+    id: 2,
+    titulo: 'Portal de Cursos',
+    descricao: 'Plataforma para divulgação e inscrição em cursos.',
+    responsavel: 'Bruno',
+    status: 'Em andamento',
+    tecnologias: ['React', 'JavaScript', 'CSS'],
+    destaque: true,
+  },
+  {
+    id: 3,
+    titulo: 'Aplicativo de Tarefas',
+    descricao: 'Organização de tarefas pessoais e profissionais.',
+    responsavel: 'Carla',
+    status: 'Em andamento',
+    tecnologias: ['React Native', 'Expo', 'SQLite'],
+    destaque: false,
+  },
+  {
+    id: 4,
+    titulo: 'Dashboard de Vendas',
+    descricao: 'Painel para acompanhar indicadores e resultados de vendas.',
+    responsavel: 'Diego',
+    status: 'Planejamento',
+    tecnologias: ['React', 'Chart.js', 'Node.js'],
+    destaque: false,
+  },
+  {
+    id: 5,
+    titulo: 'Site Institucional',
+    descricao: 'Página institucional responsiva para uma empresa local.',
+    responsavel: 'Elisa',
+    status: 'Concluído',
+    tecnologias: ['HTML', 'CSS', 'JavaScript'],
+    destaque: true,
+  },
+  {
+    id: 6,
+    titulo: 'Sistema de Agendamentos',
+    descricao: 'Agendamento online de horários e gerenciamento de clientes.',
+    responsavel: 'Felipe',
+    status: 'Em andamento',
+    tecnologias: ['React', 'Express', 'MongoDB'],
+    destaque: false,
+  },
+  {
+    id: 7,
+    titulo: 'Plataforma de Eventos',
+    descricao: 'Divulgação de eventos e gerenciamento de inscrições.',
+    responsavel: 'Gabriela',
+    status: 'Em desenvolvimento',
+    tecnologias: ['React', 'Vite', 'Firebase'],
+    destaque: true,
+  },
+]
 
 function App() {
-  const [count, setCount] = useState(0)
+  const total = projetos.length
+  const concluidos = projetos.filter(
+    (projeto) => projeto.status === 'Concluído',
+  ).length
+  const emDesenvolvimento = projetos.filter(
+    (projeto) =>
+      projeto.status === 'Em desenvolvimento' ||
+      projeto.status === 'Em andamento',
+  ).length
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <main className="projetos-page">
+      <h1>Painel de projetos</h1>
+      <Secao titulo="Resumo">
+        <Resumo
+          total={total}
+          concluidos={concluidos}
+          emDesenvolvimento={emDesenvolvimento}
+        />
+      </Secao>
+      <Secao titulo="Projetos da turma">
+        <div className="projetos-grid" aria-label="Lista de projetos">
+          {projetos.map((projeto) => (
+            <ProjetoCard
+              key={projeto.id}
+              titulo={projeto.titulo}
+              descricao={projeto.descricao}
+              responsavel={projeto.responsavel}
+              status={projeto.status}
+              tecnologias={projeto.tecnologias}
+              destaque={projeto.destaque}
+            />
+          ))}
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      </Secao>
+    </main>
   )
 }
 
